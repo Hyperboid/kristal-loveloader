@@ -16,17 +16,31 @@ function Mod:postInit()
     setfenv(main_chunk, GameEnv)
     -- love.filesystem.setIdentity("kristal/"..self:getGamePath())
     love.filesystem.mount(self:getGamePath(), "/")
+    love.graphics.push()
+    love.graphics.scale(0.5)
     main_chunk()
-    GameEnv.love.load()
+    love.graphics.pop()
+    local mainLoop = GameEnv.love.run()
+    while true do
+        local result = mainLoop()
+        if result ~= nil then
+            if result == 0 or result == "restart" then
+                Kristal.returnToMenu()
+                return
+            else
+                error("Game exited abnormally! Status code "..result)
+            end
+        end
+    end
 end
 
-function Mod:postUpdate()
-    GameEnv.love.update(DT)
-end
+-- function Mod:postUpdate()
+--     GameEnv.love.update(DT)
+-- end
 
-function Mod:postDraw()
-    GameEnv.love.draw()
-end
+-- function Mod:postDraw()
+--     GameEnv.love.draw()
+-- end
 
 function Mod:unload()
     love.filesystem.unmount(self:getGamePath())
@@ -34,6 +48,8 @@ function Mod:unload()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
 end
 
-function Mod:onKeyPressed(key)
-    
-end
+-- function Mod:onKeyPressed(key, is_repeat)
+--     if not is_repeat then
+--         GameEnv.love.keypressed(key)
+--     end
+-- end
