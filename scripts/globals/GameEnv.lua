@@ -1,6 +1,7 @@
 ---@class GameEnv: _G
 local GameEnv = {
     scale = 2,
+    _can_present = true,
     OrigGlobal = _G,
 }
 
@@ -16,7 +17,7 @@ GameEnv.require = function (modname)
         return require(modname)
     end
 end
-
+GameEnv._keypress = false
 ---@class GameEnv.love : love
 GameEnv.love = setmetatable({
     load = function () end,
@@ -25,12 +26,30 @@ GameEnv.love = setmetatable({
     errorhandler = Kristal.errorHandler,
     keypressed = function () end,
     handlers = setmetatable({}, {__index = function (self, k)
-        if GameEnv.love[k] then
-            return GameEnv.love[k]
-        elseif love.handlers[k] then
-            -- return love.handlers[k]
+        return function(...)
+            if GameEnv.love[k] then
+                GameEnv.love[k](...)
+            end
+            if not Utils.containsValue({"mousemoved"}, k) then
+                print(k)
+                
+            end
+            if not Utils.startsWith(k, "key") then
+                _G.love.handlers[k](...)
+                return
+            end
+            GameEnv._keypress = not GameEnv._keypress
+            if GameEnv._keypress then
+                _G.love.handlers[k](...)
+                _G.love.handlers[k](...)
+            end
         end
-        return function() end
+        -- if GameEnv.love[k] then
+        --     return GameEnv.love[k]
+        -- elseif love.handlers[k] then
+        --     -- return love.handlers[k]
+        -- end
+        -- return function() end
     end}),
     errhand = Kristal.errorHandler,
     run = function ()
@@ -53,6 +72,7 @@ GameEnv.love = setmetatable({
                         end
                     end
                     GameEnv.love.handlers[name](a,b,c,d,e,f)
+                    love.handlers[name](a,b,c,d,e,f)
                 end
             end
     
@@ -77,6 +97,17 @@ GameEnv.love = setmetatable({
     
 }, {__index = _G.love})
 
+
+---@class GameEnv.love.graphics : love.graphics
+GameEnv.love.graphics = setmetatable({
+    present = function ()
+        if GameEnv._can_present then
+            love.graphics.present()
+        end
+        GameEnv._can_present = true
+    end
+}, {__index = _G.love.graphics})
+
 ---@class GameEnv.love.filesystem : love.filesystem
 GameEnv.love.filesystem = setmetatable({}, {__index = love.filesystem})
 function GameEnv.love.filesystem.setIdentity(name)
@@ -84,6 +115,6 @@ function GameEnv.love.filesystem.setIdentity(name)
 end
 
 setmetatable(GameEnv, {__index = _G})
-GameEnv._G = GameEnv
+GameEnv._G = _G
 
 return GameEnv

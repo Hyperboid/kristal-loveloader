@@ -22,7 +22,12 @@ function Mod:postInit()
     love.graphics.pop()
     local mainLoop = GameEnv.love.run()
     while true do
+        GameEnv._can_present = false
         local result = mainLoop()
+        Kristal.Stage:update()
+        Kristal.Stage:draw()
+        _G.GameEnv._can_present = true
+        love.graphics.present()
         if result ~= nil then
             if result == 0 or result == "restart" then
                 Kristal.returnToMenu()
