@@ -1,3 +1,6 @@
 [submodule "games/mari0"]
     path=games/mari0
     url=git@github.com:Stabyourself/mari0.git
+[submodule "games/dpr"]
+	path = games/dpr
+	url = https://github.com/DarkPlace-dr/DarkPlaceRebirth-Kristal
