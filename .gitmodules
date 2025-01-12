@@ -1,0 +1,3 @@
+[submodule "games/mari0"]
+    path=games/mari0
+    url=git@github.com:Stabyourself/mari0.git
