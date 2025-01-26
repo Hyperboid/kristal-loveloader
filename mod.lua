@@ -13,6 +13,7 @@ end
 
 function Mod:postInit()
     local main_chunk = love.filesystem.load(self:getGamePath().."/main.lua")
+    assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
     -- love.filesystem.setIdentity("kristal/"..self:getGamePath())
     love.filesystem.mount(self:getGamePath(), "/")
