@@ -96,9 +96,9 @@
   <object id="19" name="npc" x="480" y="840" width="40" height="40">
    <properties>
     <property name="actor" value="starwalker"/>
-    <property name="text1">* These [color:yellow]stairs[color:reset] are [color:yellow]Pissing[color:reset] me
+    <property name="text1">* These [color:yellow]games[color:reset] are [color:yellow]Pissing[color:reset] me
 off...</property>
-    <property name="text2" value="* I'm the original   [color:yellow]Starwalker[color:reset]"/>
+    <property name="text2" value="* I'm the original   [wait:30][color:yellow]Starwalker[color:reset]"/>
    </properties>
   </object>
   <object id="27" name="savepoint" x="80" y="210" width="40" height="40">

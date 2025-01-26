@@ -443,8 +443,8 @@ return {
           visible = true,
           properties = {
             ["actor"] = "starwalker",
-            ["text1"] = "* These [color:yellow]stairs[color:reset] are [color:yellow]Pissing[color:reset] me\noff...",
-            ["text2"] = "* I'm the original   [color:yellow]Starwalker[color:reset]"
+            ["text1"] = "* These [color:yellow]games[color:reset] are [color:yellow]Pissing[color:reset] me\noff...",
+            ["text2"] = "* I'm the original   [wait:30][color:yellow]Starwalker[color:reset]"
           }
         },
         {
