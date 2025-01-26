@@ -15,7 +15,7 @@ function Mod:getGamePath()
 end
 
 function Mod:postInit()
-    self:runGame()
+    -- self:runGame()
 end
 
 function Mod:runGame(game, quit_callback)

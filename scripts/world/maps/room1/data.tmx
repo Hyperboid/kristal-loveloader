@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="38">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -118,16 +118,12 @@ you.</property>
     <property name="once" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="35" name="npc" x="300" y="160">
+  <object id="38" name="cab" x="200" y="40" width="80" height="120">
    <properties>
-    <property name="actor" value="wall"/>
-    <property name="flagcheck" value="wall_hit"/>
-    <property name="text1">* I Am the Wall Guardian.[wait:5]
-* This Wall is Off Limits for you
-no-good wall slammers.</property>
+    <property name="game" value="mari0"/>
    </properties>
-   <point/>
   </object>
+  <object id="39" name="trivial" type="cab" x="80" y="40" width="80" height="120"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="20" name="spawn" x="300" y="250">

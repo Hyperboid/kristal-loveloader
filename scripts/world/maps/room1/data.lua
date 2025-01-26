@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 38,
+  nextobjectid = 40,
   properties = {
     ["name"] = "Test Map - Room 1"
   },
@@ -493,21 +493,32 @@ return {
           }
         },
         {
-          id = 35,
-          name = "npc",
+          id = 38,
+          name = "cab",
           type = "",
-          shape = "point",
-          x = 300,
-          y = 160,
-          width = 0,
-          height = 0,
+          shape = "rectangle",
+          x = 200,
+          y = 40,
+          width = 80,
+          height = 120,
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "wall",
-            ["flagcheck"] = "wall_hit",
-            ["text1"] = "* I Am the Wall Guardian.[wait:5]\n* This Wall is Off Limits for you\nno-good wall slammers."
+            ["game"] = "mari0"
           }
+        },
+        {
+          id = 39,
+          name = "trivial",
+          type = "cab",
+          shape = "rectangle",
+          x = 80,
+          y = 40,
+          width = 80,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
