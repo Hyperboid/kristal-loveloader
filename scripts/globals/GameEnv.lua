@@ -110,7 +110,20 @@ function GameEnv.love.filesystem.setIdentity(name)
     love.filesystem.setIdentity(Mod.fs_identity .. "/saves/" .. Mod.info.id .. "/" .. Mod.game)
 end
 
-setmetatable(GameEnv, {__index = _G})
-GameEnv._G = _G
+GameEnv._G = GameEnv
+
+for _, value in ipairs({
+    "module","require","assert","string","table",
+    "type","next","pairs","ipairs","getmetatable",
+    "setmetatable","getfenv","setfenv","rawget","rawset",
+    "rawequal","unpack","select","tonumber","tostring",
+    "error","pcall","xpcall","loadfile","load",
+    "loadstring","dofile","gcinfo","collectgarbage","newproxy",
+    "print","_VERSION","coroutine","package","love",
+    "arg","jit","bit","debug","math",
+    "os","io",
+}) do
+    GameEnv[value] = GameEnv[value] or _G[value]
+end
 
 return GameEnv
