@@ -19,10 +19,6 @@ function Mod:getGamePath(game)
     return self.info.path .. "/games/"..game
 end
 
-function Mod:postInit()
-    -- self:runGame()
-end
-
 function Mod:startGame(game, quit_callback)
     Kristal.Console:close()
     Game.stage.timer:after(0, function ()
@@ -37,7 +33,6 @@ function Mod:runGame(game, quit_callback)
     local main_chunk = love.filesystem.load("main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
-    -- love.filesystem.setIdentity("kristal/"..self:getGamePath())
     love.graphics.push()
     love.graphics.scale(0.5)
     love.mouse.setVisible(true)
@@ -64,13 +59,6 @@ function Mod:runGame(game, quit_callback)
     self:cleanup()
 end
 
--- function Mod:postUpdate()
---     GameEnv.love.update(DT)
--- end
-
--- function Mod:postDraw()
---     GameEnv.love.draw()
--- end
 
 function Mod:unload()
     self:cleanup()
@@ -86,9 +74,3 @@ function Mod:cleanup()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
     Input.clear(nil, true)
 end
-
--- function Mod:onKeyPressed(key, is_repeat)
---     if not is_repeat then
---         GameEnv.love.keypressed(key)
---     end
--- end
