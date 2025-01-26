@@ -43,7 +43,7 @@ function Mod:runGame(game, quit_callback)
     love.mouse.setVisible(true)
     main_chunk()
     love.graphics.pop()
-    local mainLoop = GameEnv.love.run()
+    local mainLoop = GameEnv.love.run() or function() return 0 end
     while true do
         GameEnv._can_present = false
         local result = mainLoop()
