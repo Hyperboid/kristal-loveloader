@@ -30,10 +30,6 @@ GameEnv.love = setmetatable({
             if GameEnv.love[k] then
                 GameEnv.love[k](...)
             end
-            if not Utils.containsValue({"mousemoved"}, k) then
-                print(k)
-                
-            end
             if not Utils.startsWith(k, "key") then
                 _G.love.handlers[k](...)
                 return
