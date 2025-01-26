@@ -38,11 +38,11 @@ function Mod:runGame(game, quit_callback)
     local main_chunk = love.filesystem.load("main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
-    love.graphics.scale(0.5)
+    love.graphics.scale(1/Kristal.Config["windowScale"])
     love.mouse.setVisible(true)
     main_chunk()
     local mainLoop = GameEnv.love.run() or function() return 0 end
-    love.graphics.scale(2)
+    love.graphics.scale(Kristal.Config["windowScale"])
     while true do
         GameEnv._can_present = false
         local result = mainLoop()
