@@ -28,6 +28,7 @@ function Mod:runGame(game, quit_callback)
     love.filesystem.mount(self:getGamePath(), "/")
     love.graphics.push()
     love.graphics.scale(0.5)
+    love.mouse.setVisible(true)
     main_chunk()
     love.graphics.pop()
     local mainLoop = GameEnv.love.run()
@@ -46,6 +47,7 @@ function Mod:runGame(game, quit_callback)
             end
         end
     end
+    Kristal.updateCursor()
     quit_callback()
     self:cleanup()
 end
