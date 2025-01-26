@@ -11,6 +11,11 @@ function Mod:init()
     end)
 end
 
+function Mod:hasGame(game)
+    assert(type(game) == "string", "bad argument #1 to 'gameExists' (string expected, got "..type(game)..")")
+    return love.filesystem.getInfo(self:getGamePath(game)) ~= nil
+end
+
 function Mod:getGamePath(game)
     game = game or self.game
     if love.filesystem.getInfo(self.info.path .. "/games/"..game..".love") then
