@@ -1,6 +1,9 @@
 function Mod:init()
     print("Loaded "..self.info.name.."!")
     self.game = "mari0"
+
+    -- Don't kill threads
+    Utils.hook(love, "quit", function() end)
     Utils.hook(Kristal, "errorHandler", function (orig, msg,...)
         self:unload()
         return orig(msg,...)
