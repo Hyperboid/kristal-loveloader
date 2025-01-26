@@ -11,22 +11,33 @@ function Mod:init()
     end)
 end
 
-function Mod:getGamePath()
-    return self.info.path .. "/games/"..self.game
+function Mod:getGamePath(game)
+    game = game or self.game
+    if love.filesystem.getInfo(self.info.path .. "/games/"..game..".love") then
+        return self.info.path .. "/games/"..game .. ".love"
+    end
+    return self.info.path .. "/games/"..game
 end
 
 function Mod:postInit()
     -- self:runGame()
 end
 
+function Mod:startGame(game, quit_callback)
+    Kristal.Console:close()
+    Game.stage.timer:after(0, function ()
+        self:runGame(game, quit_callback or function () end)
+    end)
+end
+
 function Mod:runGame(game, quit_callback)
     self.game = game or self.game
     quit_callback = quit_callback or Kristal.returnToMenu
-    local main_chunk = love.filesystem.load(self:getGamePath().."/main.lua")
+    love.filesystem.mount(self:getGamePath(), "/")
+    local main_chunk = love.filesystem.load("main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
     -- love.filesystem.setIdentity("kristal/"..self:getGamePath())
-    love.filesystem.mount(self:getGamePath(), "/")
     love.graphics.push()
     love.graphics.scale(0.5)
     love.mouse.setVisible(true)

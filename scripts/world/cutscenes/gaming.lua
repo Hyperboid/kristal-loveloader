@@ -1,7 +1,7 @@
 ---@param cutscene WorldCutscene
 ---@param game string
 return function (cutscene, game)
-    if not love.filesystem.getInfo(Mod.info.path.."/games/"..game) then
+    if not love.filesystem.getInfo(Mod:getGamePath(game)) then
         cutscene:text("* It's an arcade cabinet for \""..game..".\"[wait:10]\n* It's out of order.")
         return
     end
