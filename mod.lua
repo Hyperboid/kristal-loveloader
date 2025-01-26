@@ -43,13 +43,25 @@ function Mod:runGame(game, quit_callback)
     main_chunk()
     local mainLoop = GameEnv.love.run() or function() return 0 end
     love.graphics.scale(Kristal.Config["windowScale"])
+    DT = 1/60
     while true do
-        GameEnv._can_present = false
+        GameEnv._can_present = GameEnv.Kristal ~= nil
         local result = mainLoop()
-        Kristal.Stage:update()
-        Kristal.Stage:draw()
-        _G.GameEnv._can_present = true
-        love.graphics.present()
+        if not GameEnv.Kristal then
+            Kristal.Stage:update()
+            love.graphics.push()
+            local w, h = love.window.getMode()
+            love.graphics.translate(w/2, 0)
+            love.graphics.scale(h / SCREEN_HEIGHT)
+            love.graphics.translate(-SCREEN_WIDTH/2, 0)
+            local canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_HEIGHT)
+            Kristal.Stage:draw()
+            Draw.popCanvas()
+            Draw.draw(canvas)
+            love.graphics.pop()
+            _G.GameEnv._can_present = true
+            love.graphics.present()
+        end
         if result ~= nil then
             if result == 0 or result == "restart" then
                 break

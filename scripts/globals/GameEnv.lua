@@ -27,17 +27,8 @@ GameEnv.love = setmetatable({
     keypressed = function () end,
     handlers = setmetatable({}, {__index = function (self, k)
         return function(...)
-            if GameEnv.love[k] then
+            if GameEnv.love[k] and not (OVERLAY_OPEN and Utils.startsWith(k, "key")) then
                 GameEnv.love[k](...)
-            end
-            if not Utils.startsWith(k, "key") then
-                _G.love.handlers[k](...)
-                return
-            end
-            GameEnv._keypress = not GameEnv._keypress
-            if GameEnv._keypress then
-                _G.love.handlers[k](...)
-                _G.love.handlers[k](...)
             end
         end
         -- if GameEnv.love[k] then
