@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 42,
+  nextobjectid = 43,
   properties = {
     ["name"] = "Test Map - Room 1"
   },
@@ -540,6 +540,19 @@ return {
           shape = "rectangle",
           x = 440,
           y = 40,
+          width = 80,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "dpr",
+          type = "cab",
+          shape = "rectangle",
+          x = 360,
+          y = 640,
           width = 80,
           height = 120,
           rotation = 0,
