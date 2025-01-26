@@ -11,7 +11,7 @@ function Mod:init()
 end
 
 function Mod:getGamePath()
-    return Mod.info.path .. "/games/"..self.game
+    return self.info.path .. "/games/"..self.game
 end
 
 function Mod:postInit()
