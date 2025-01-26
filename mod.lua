@@ -81,6 +81,7 @@ function Mod:unload()
 end
 
 function Mod:cleanup()
+    love.audio.stop()
     if GameEnv ~= nil then
         GameEnv = modRequire("scripts.globals.GameEnv")
     end
