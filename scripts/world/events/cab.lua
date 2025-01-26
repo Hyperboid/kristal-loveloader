@@ -11,6 +11,9 @@ function cab:init(data, ...)
     end
     self:setHitbox(0,0,self:getSize())
     self.solid = true
+    if not Mod:hasGame(self.game) then
+        self:addFX(ShaderFX("monotone", {amount = 0.8}))
+    end
 end
 
 function cab:onAdd(parent)
