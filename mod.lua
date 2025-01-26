@@ -84,6 +84,7 @@ function Mod:cleanup()
     love.filesystem.setIdentity(self.fs_identity)
     Kristal.resetWindow()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
+    Input.clear(nil, true)
 end
 
 -- function Mod:onKeyPressed(key, is_repeat)
