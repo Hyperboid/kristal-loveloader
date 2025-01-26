@@ -15,6 +15,10 @@ function Mod:getGamePath()
 end
 
 function Mod:postInit()
+    self:runGame()
+end
+
+function Mod:runGame()
     local main_chunk = love.filesystem.load(self:getGamePath().."/main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
