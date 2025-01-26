@@ -1,3 +1,8 @@
 # games/
 .vscode/
 *.tiled-session
+games/
+!games/dpr
+!games/trivial
+!games/mari0
+!games/Mari0-CE
