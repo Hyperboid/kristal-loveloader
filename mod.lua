@@ -38,12 +38,11 @@ function Mod:runGame(game, quit_callback)
     local main_chunk = love.filesystem.load("main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
-    love.graphics.push()
     love.graphics.scale(0.5)
     love.mouse.setVisible(true)
     main_chunk()
-    love.graphics.pop()
     local mainLoop = GameEnv.love.run() or function() return 0 end
+    love.graphics.scale(2)
     while true do
         GameEnv._can_present = false
         local result = mainLoop()
