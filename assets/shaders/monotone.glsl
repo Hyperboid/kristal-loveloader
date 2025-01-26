@@ -1,4 +1,4 @@
-uniform float amount = .5;
+uniform float amount = 1;
 
 vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
