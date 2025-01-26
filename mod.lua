@@ -35,11 +35,27 @@ function Mod:runGame(game, quit_callback)
     self.game = game or self.game
     quit_callback = quit_callback or Kristal.returnToMenu
     love.filesystem.mount(self:getGamePath(), "/")
+    local conf_chunk = love.filesystem.load("conf.lua")
+    local conf = {}
+    do
+        local conf_mt_val
+        local conf_mt = {__index = function() return conf_mt_val end}
+        conf_mt_val = setmetatable({}, conf_mt)
+        setmetatable(conf, conf_mt)
+    end
+    if conf_chunk then
+        setfenv(conf_chunk, GameEnv)
+        conf_chunk()
+        GameEnv.love.conf(conf)
+    end
     local main_chunk = love.filesystem.load("main.lua")
     assert(main_chunk, "Missing main.lua ("..self:getGamePath()..")")
     setfenv(main_chunk, GameEnv)
     love.graphics.scale(1/Kristal.Config["windowScale"])
     love.mouse.setVisible(true)
+    if conf.identity then
+        GameEnv.love.filesystem.setIdentity(conf.identity)
+    end
     main_chunk()
     local mainLoop = GameEnv.love.run() or function() return 0 end
     love.graphics.scale(Kristal.Config["windowScale"])
