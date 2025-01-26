@@ -1,6 +1,7 @@
 function Mod:init()
     print("Loaded "..self.info.name.."!")
     self.game = "mari0"
+    self.fs_identity = love.filesystem.getIdentity()
 
     -- Don't kill threads
     Utils.hook(love, "quit", function() end)
@@ -69,6 +70,7 @@ function Mod:cleanup()
         GameEnv = modRequire("scripts.globals.GameEnv")
     end
     love.filesystem.unmount(self:getGamePath())
+    love.filesystem.setIdentity(self.fs_identity)
     Kristal.resetWindow()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
 end

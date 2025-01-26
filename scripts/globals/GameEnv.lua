@@ -107,7 +107,7 @@ GameEnv.love.graphics = setmetatable({
 ---@class GameEnv.love.filesystem : love.filesystem
 GameEnv.love.filesystem = setmetatable({}, {__index = love.filesystem})
 function GameEnv.love.filesystem.setIdentity(name)
-    -- nope
+    love.filesystem.setIdentity(Mod.fs_identity .. "/saves/" .. Mod.info.id .. "/" .. Mod.game)
 end
 
 setmetatable(GameEnv, {__index = _G})
