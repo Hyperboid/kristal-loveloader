@@ -4,3 +4,6 @@
 [submodule "games/dpr"]
 	path = games/dpr
 	url = https://github.com/DarkPlace-dr/DarkPlaceRebirth-Kristal
+[submodule "games/Mari0-CE"]
+	path = games/Mari0-CE
+	url = git@github.com:Mari0-CE/Mari0-Community-Edition.git
