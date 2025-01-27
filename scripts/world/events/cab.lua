@@ -13,6 +13,7 @@ function cab:init(data, ...)
     if self.is_archive then
         love.filesystem.mount(Mod:getGamePath(self.game), "_archived_mount_scan_"..self.game.."_")
     end
+    self:scanForCab("launcher_arcade_cab.png")
     self:scanForIcon("icon.png")
     self:scanForIcon("graphics/icon.png")
     if self.is_archive then
@@ -26,6 +27,7 @@ function cab:init(data, ...)
 end
 
 function cab:scanForIcon(path)
+    if not self.sprite.texture_path then return end
     if self.icon then return end
     local base_path = Mod:getGamePath(self.game)
     if self.is_archive then
@@ -39,6 +41,18 @@ function cab:scanForIcon(path)
         Draw.popCanvas()
         self.icon = love.graphics.newImage(canvas:newImageData())
         love.graphics.setCanvas(prev_canvas)
+    end
+end
+
+function cab:scanForCab(path)
+    if self.sprite.texture_path ~= "events/cab/generic" then return end
+    local base_path = Mod:getGamePath(self.game)
+    if self.is_archive then
+        base_path = "_archived_mount_scan_"..self.game.."_"
+    end
+    if love.filesystem.getInfo(base_path.."/"..path) then
+        local spr = love.graphics.newImage(base_path.."/"..path)
+        self:setSprite(spr)
     end
 end
 
