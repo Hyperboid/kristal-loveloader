@@ -60,6 +60,7 @@ function Mod:runGame(game, quit_callback)
     local mainLoop = GameEnv.love.run() or function() return 0 end
     love.graphics.scale(Kristal.Config["windowScale"])
     DT = 1/60
+    if GameEnv.Kristal then GameEnv.Kristal.resetWindow() end
     while true do
         GameEnv._can_present = GameEnv.Kristal ~= nil
         local result = mainLoop()
