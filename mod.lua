@@ -6,7 +6,7 @@ function Mod:init()
     -- Don't kill threads
     Utils.hook(love, "quit", function() end)
     Utils.hook(Kristal, "errorHandler", function (orig, msg,...)
-        self:unload()
+        pcall(self.unload,self)
         return orig(msg,...)
     end)
 end
