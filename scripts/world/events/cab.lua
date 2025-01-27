@@ -23,6 +23,7 @@ end
 
 function cab:onInteract()
     Game.world:startCutscene("gaming", self.game)
+    return true
 end
 
 return cab
