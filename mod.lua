@@ -103,6 +103,7 @@ function Mod:cleanup()
     end
     love.filesystem.unmount(self:getGamePath())
     love.filesystem.setIdentity(self.fs_identity)
+    Kristal.setDesiredWindowTitleAndIcon()
     Kristal.resetWindow()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
     Input.clear(nil, true)
