@@ -101,8 +101,8 @@ function Mod:cleanup()
     if GameEnv ~= nil then
         GameEnv = modRequire("scripts.globals.GameEnv")
     end
-    love.filesystem.unmount(self:getGamePath())
     love.filesystem.setIdentity(self.fs_identity)
+    love.filesystem.unmount(self:getGamePath())
     Kristal.setDesiredWindowTitleAndIcon()
     Kristal.resetWindow()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
