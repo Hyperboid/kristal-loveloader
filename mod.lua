@@ -107,4 +107,5 @@ function Mod:cleanup()
     Kristal.resetWindow()
     Kristal.setVolume(Kristal.Config["masterVolume"] or 0.6)
     Input.clear(nil, true)
+    love.graphics.setBackgroundColor(COLORS.black)
 end
