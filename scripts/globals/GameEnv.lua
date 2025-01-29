@@ -23,7 +23,7 @@ GameEnv.love = setmetatable({
     load = function () end,
     update = function () end,
     draw = function () end,
-    errorhandler = Kristal.errorHandler,
+    errorhandler = nil,
     keypressed = function () end,
     handlers = setmetatable({}, {__index = function (self, k)
         return function(...)

@@ -57,14 +57,25 @@ function Mod:runGame(game, quit_callback)
         GameEnv.love.filesystem.setIdentity(conf.identity)
     end
     main_chunk()
-    local mainLoop = GameEnv.love.run() or function() return 0 end
+    GameEnv.love.errorhandler = GameEnv.love.errorhandler or GameEnv.love.errhand or love.errhand or love.errorhandler
+    local ok, mainLoop = xpcall(GameEnv.love.run, GameEnv.love.errorhandler)
+    if type(mainLoop) ~= "function" then
+        local val = mainLoop
+        mainLoop = function() return val or 0 end
+    end
+    local result
     love.graphics.scale(Kristal.Config["windowScale"])
+    local has_errored = false
     DT = 1/60
     if GameEnv.Kristal then GameEnv.Kristal.resetWindow() end
     while true do
-        GameEnv._can_present = GameEnv.Kristal ~= nil
-        local result = mainLoop()
-        if not GameEnv.Kristal then
+        if not has_errored then
+            GameEnv._can_present = GameEnv.Kristal ~= nil
+            ok, result = xpcall(mainLoop, GameEnv.love.errorhandler)
+        else
+            result = mainLoop()
+        end
+        if not has_errored and not GameEnv.Kristal then
             Kristal.Stage:update()
             love.graphics.push()
             local w, h = love.window.getMode()
@@ -79,8 +90,11 @@ function Mod:runGame(game, quit_callback)
             _G.GameEnv._can_present = true
             love.graphics.present()
         end
-        if result ~= nil then
-            if result == 0 or result == "restart" then
+        if not ok and not has_errored then
+            mainLoop = result
+            has_errored = true
+        elseif result ~= nil then
+            if result == 0 or result == "restart" or result == "reload" then
                 break
             else
                 error("Game exited abnormally! Status code "..result)
