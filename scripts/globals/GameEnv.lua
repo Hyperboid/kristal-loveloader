@@ -6,11 +6,15 @@ local GameEnv = {
 }
 
 GameEnv.require = function (modname)
+    -- Workaround Kristal-specific issue with ffi
+    if Utils.containsValue({
+        "src.lib.discordrpc",
+    }, moodname) then return end
+    package.loaded[modname] = nil
     local path = modname:gsub("%.", "/")
     local items = love.filesystem.getDirectoryItems("/")
     local chunk = love.filesystem.load(path..".lua") or love.filesystem.load(path.."/init.lua")
     if chunk then
-        
         setfenv(chunk, GameEnv)
         return chunk()
     else
